@@ -17,17 +17,39 @@ public class Anggota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_anggota;
-    private String nama_anggota;
-    private String alamat_anggota;
-    private String jenis_kelamin;
+
+    @Column(name = "nama_anggota")
+    private String namaAnggota;
+
+    @Column(name = "alamat_anggota")
+    private String alamatAnggota;
+
+    @Column(name = "jenis_kelamin")
+    private String jenisKelamin;
+
+    @Column(name = "pekerjaan")
     private String pekerjaan;
-    private String tanggal_masuk;
+
+    @Column(name = "tanggal_masuk")
+    private String tanggalMasuk;
+
+    @Column(name = "telpon")
     private String telpon;
-    private String tempat_lahir;
-    private String tgl_lahir;
+
+    @Column(name = "tempat_lahir")
+    private String tempatLahir;
+
+    @Column(name = "tgl_lahir")
+    private String tglLahir;
+
+    @Column(name = "status")
     private String status;
-    private String u_entry;
-    private String tgl_entry;
+
+    @Column(name = "u_entry")
+    private String uEntry;
+
+    @Column(name = "tgl_entry")
+    private String tglEntry;
 
 
 
@@ -39,6 +61,7 @@ public class Anggota {
 
     @OneToMany(mappedBy = "anggota", cascade = CascadeType.ALL)
     private List<Tabungan> tabungans;
+
 
 
 }

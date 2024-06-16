@@ -1,8 +1,18 @@
 package com.koperasi.dto.response;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AnggotaResponseDTO {
 
-    private Long idAnggota;
+    private Long id_anggota;
     private String namaAnggota;
     private String alamatAnggota;
     private String jenisKelamin;
