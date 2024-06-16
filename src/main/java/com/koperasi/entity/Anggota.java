@@ -17,6 +17,18 @@ public class Anggota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_anggota;
+    private String nama_anggota;
+    private String alamat_anggota;
+    private String jenis_kelamin;
+    private String pekerjaan;
+    private String tanggal_masuk;
+    private String telpon;
+    private String tempat_lahir;
+    private String tgl_lahir;
+    private String status;
+    private String u_entry;
+    private String tgl_entry;
+
 
 
     @OneToMany(mappedBy = "anggota", cascade = CascadeType.ALL)
