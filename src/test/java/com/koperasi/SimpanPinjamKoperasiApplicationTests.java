@@ -1,4 +1,4 @@
-package com.koperasi.simpan_pinjam_koperasi;
+package com.koperasi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
