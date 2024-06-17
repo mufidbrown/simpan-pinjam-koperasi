@@ -62,6 +62,9 @@ public class Anggota {
     @OneToMany(mappedBy = "anggota", cascade = CascadeType.ALL)
     private List<Tabungan> tabungans;
 
+    @OneToMany(mappedBy = "anggota", cascade = CascadeType.ALL)
+    private List<Simpanan> simpanans;
+
 
 
 }

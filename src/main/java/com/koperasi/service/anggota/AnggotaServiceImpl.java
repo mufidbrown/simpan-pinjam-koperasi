@@ -36,7 +36,7 @@ public class AnggotaServiceImpl implements AnggotaService {
                         anggota.getTempatLahir(),
                         anggota.getTglLahir(),
                         anggota.getStatus(),
-                        anggota.getUEntry(),
+//                        anggota.getUEntry(),
                         anggota.getTglEntry()
                 ))
                 .collect(Collectors.toList());
@@ -54,7 +54,7 @@ public class AnggotaServiceImpl implements AnggotaService {
         anggota.setTempatLahir(anggotaRequest.getTempatLahir());
         anggota.setTglLahir(anggotaRequest.getTglLahir());
         anggota.setStatus(anggotaRequest.getStatus());
-        anggota.setUEntry(anggotaRequest.getUEntry());
+//        anggota.setUEntry(anggotaRequest.getUEntry());
         anggota.setTglEntry(anggotaRequest.getTglEntry());
 
         Anggota savedAnggota = anggotaRepository.save(anggota);
@@ -70,7 +70,7 @@ public class AnggotaServiceImpl implements AnggotaService {
                 savedAnggota.getTempatLahir(),
                 savedAnggota.getTglLahir(),
                 savedAnggota.getStatus(),
-                savedAnggota.getUEntry(),
+//                savedAnggota.getUEntry(),
                 savedAnggota.getTglEntry()
         );
     }
@@ -91,7 +91,7 @@ public class AnggotaServiceImpl implements AnggotaService {
                 anggota.getTempatLahir(),
                 anggota.getTglLahir(),
                 anggota.getStatus(),
-                anggota.getUEntry(),
+//                anggota.getUEntry(),
                 anggota.getTglEntry()
         );
     }
@@ -110,7 +110,7 @@ public class AnggotaServiceImpl implements AnggotaService {
         anggota.setTempatLahir(anggotaRequest.getTempatLahir());
         anggota.setTglLahir(anggotaRequest.getTglLahir());
         anggota.setStatus(anggotaRequest.getStatus());
-        anggota.setUEntry(anggotaRequest.getUEntry());
+//        anggota.setUEntry(anggotaRequest.getUEntry());
         anggota.setTglEntry(anggotaRequest.getTglEntry());
 
         Anggota updatedAnggota = anggotaRepository.save(anggota);
@@ -126,7 +126,7 @@ public class AnggotaServiceImpl implements AnggotaService {
                 updatedAnggota.getTempatLahir(),
                 updatedAnggota.getTglLahir(),
                 updatedAnggota.getStatus(),
-                updatedAnggota.getUEntry(),
+//                updatedAnggota.getUEntry(),
                 updatedAnggota.getTglEntry()
         );
     }

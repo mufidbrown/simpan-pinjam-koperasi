@@ -19,7 +19,7 @@ public class AnggotaRequestDTO {
 
 
         @NotBlank(message = "Nama anggota tidak boleh kosong")
-        @Size(max = 100, message = "Nama anggota maksimal {max} karakter")
+        @Size(min = 3, max = 10, message = "Nama anggota maksimal {max} karakter")
         private String namaAnggota;
 
         @NotBlank(message = "Alamat anggota tidak boleh kosong")
@@ -51,8 +51,8 @@ public class AnggotaRequestDTO {
 
         private String status;
 
-        @NotBlank(message = "UEntry Tidak Boleh Kosong")
-        private String uEntry;
+//        @NotBlank(message = "UEntry Tidak Boleh Kosong")
+//        private String uEntry;
 
         private String tglEntry;
 
@@ -104,4 +104,3 @@ public class AnggotaRequestDTO {
 //        private String tglEntry;
 
 }
-
