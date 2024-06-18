@@ -5,11 +5,14 @@ import com.koperasi.config.BaseResponse;
 import com.koperasi.dto.request.AnggotaRequestDTO;
 import com.koperasi.dto.response.AnggotaResponseDTO;
 import com.koperasi.exception.DuplicateEntityException;
+import com.koperasi.exception.ValidationException;
 import com.koperasi.service.anggota.AnggotaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -102,46 +105,81 @@ public class AnggotaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseResponse.error("Gagal mengambil daftar anggota."));
         }
     }
+//
+//        @PostMapping("/create1")
+//        public ResponseEntity<BaseResponse<AnggotaResponseDTO>> addAnggota1(@Valid @RequestBody AnggotaRequestDTO anggotaRequest) {
+//            try {
+//                // Memanggil service untuk menambahkan anggota
+//                AnggotaResponseDTO responseDTO = anggotaService.addAnggota(anggotaRequest);
+//
+//                // Mengembalikan respons berhasil
+//                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
+//                        .success(true)
+//                        .status(HttpStatus.CREATED.value())
+//                        .color("#F44336")
+//                        .data(responseDTO)
+//                        .message("Anggota berhasil ditambahkan")
+//                        .build();
+//
+//                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//            } catch (DuplicateEntityException e) {
+//                // Tangani pengecualian jika terjadi duplikat entitas
+//                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
+//                        .success(false)
+//                        .status(HttpStatus.CONFLICT.value())
+//                        .color("#F44336")
+//                        .message("Anggota dengan nama tersebut sudah ada.")
+//                        .build();
+//
+//                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+//            } catch (Exception e) {
+//                // Tangani pengecualian lainnya
+//                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
+//                        .success(false)
+//                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+//                        .color("#F44336")
+//                        .message("Gagal menambahkan anggota.")
+//                        .build();
+//
+//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+//            }
+//        }
 
-        @PostMapping("/create1")
-        public ResponseEntity<BaseResponse<AnggotaResponseDTO>> addAnggota1(@Valid @RequestBody AnggotaRequestDTO anggotaRequest) {
-            try {
-                // Memanggil service untuk menambahkan anggota
-                AnggotaResponseDTO responseDTO = anggotaService.addAnggota(anggotaRequest);
-
-                // Mengembalikan respons berhasil
-                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
-                        .success(true)
-                        .status(HttpStatus.CREATED.value())
-                        .color("#F44336")
-                        .data(responseDTO)
-                        .message("Anggota berhasil ditambahkan")
-                        .build();
-
-                return ResponseEntity.status(HttpStatus.CREATED).body(response);
-            } catch (DuplicateEntityException e) {
-                // Tangani pengecualian jika terjadi duplikat entitas
-                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
-                        .success(false)
-                        .status(HttpStatus.CONFLICT.value())
-                        .color("#F44336")
-                        .message("Anggota dengan nama tersebut sudah ada.")
-                        .build();
-
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-            } catch (Exception e) {
-                // Tangani pengecualian lainnya
-                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
-                        .success(false)
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                        .color("#F44336")
-                        .message("Gagal menambahkan anggota.")
-                        .build();
-
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-            }
+    @PostMapping("/create1")
+    public ResponseEntity<BaseResponse<AnggotaResponseDTO>> addAnggota1(@Validated @RequestBody AnggotaRequestDTO anggotaRequest,
+                                                                        BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException(bindingResult);
         }
 
+        // Memanggil service untuk menambahkan anggota
+        AnggotaResponseDTO responseDTO = anggotaService.addAnggota(anggotaRequest);
+
+        // Mengembalikan respons berhasil
+        BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
+                .success(true)
+                .status(HttpStatus.CREATED.value())
+                .color("#F44336")
+                .data(responseDTO)
+                .message("Anggota berhasil ditambahkan")
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    // Exception handler untuk menangani ValidationException
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<BaseResponse<Object>> handleValidationException(ValidationException ex) {
+        List<String> errors = ex.getErrors();
+        BaseResponse<Object> response = BaseResponse.<Object>builder()
+                .success(false)
+                .status(HttpStatus.BAD_REQUEST.value())
+                .color("#F44336")
+                .message("Validation error occurred")
+                .data(errors)
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
 
 
 
