@@ -83,40 +83,6 @@ public class AnggotaServiceImpl implements AnggotaService {
     }
 
 
-
-//    @Override
-//    public AnggotaResponseDTO addAnggota(AnggotaRequestDTO anggotaRequest) {
-//        Anggota anggota = new Anggota();
-//        anggota.setNamaAnggota(anggotaRequest.getNamaAnggota());
-//        anggota.setAlamatAnggota(anggotaRequest.getAlamatAnggota());
-//        anggota.setJenisKelamin(anggotaRequest.getJenisKelamin());
-//        anggota.setPekerjaan(anggotaRequest.getPekerjaan());
-//        anggota.setTanggalMasuk(anggotaRequest.getTanggalMasuk());
-//        anggota.setTelpon(anggotaRequest.getTelepon());
-//        anggota.setTempatLahir(anggotaRequest.getTempatLahir());
-//        anggota.setTglLahir(anggotaRequest.getTglLahir());
-//        anggota.setStatus(anggotaRequest.getStatus());
-////        anggota.setUEntry(anggotaRequest.getUEntry());
-//        anggota.setTglEntry(anggotaRequest.getTglEntry());
-//
-//        Anggota savedAnggota = anggotaRepository.save(anggota);
-//
-//        return new AnggotaResponseDTO(
-//                savedAnggota.getId_anggota(),
-//                savedAnggota.getNamaAnggota(),
-//                savedAnggota.getAlamatAnggota(),
-//                savedAnggota.getJenisKelamin(),
-//                savedAnggota.getPekerjaan(),
-//                savedAnggota.getTanggalMasuk(),
-//                savedAnggota.getTelpon(),
-//                savedAnggota.getTempatLahir(),
-//                savedAnggota.getTglLahir(),
-//                savedAnggota.getStatus(),
-////                savedAnggota.getUEntry(),
-//                savedAnggota.getTglEntry()
-//        );
-//    }
-
     @Override
     public AnggotaResponseDTO getAnggotaById(Long id) {
         Anggota anggota = anggotaRepository.findById(id)
@@ -178,3 +144,41 @@ public class AnggotaServiceImpl implements AnggotaService {
         anggotaRepository.deleteById(id);
     }
 }
+
+
+
+
+
+
+//    @Override
+//    public AnggotaResponseDTO addAnggota(AnggotaRequestDTO anggotaRequest) {
+//        Anggota anggota = new Anggota();
+//        anggota.setNamaAnggota(anggotaRequest.getNamaAnggota());
+//        anggota.setAlamatAnggota(anggotaRequest.getAlamatAnggota());
+//        anggota.setJenisKelamin(anggotaRequest.getJenisKelamin());
+//        anggota.setPekerjaan(anggotaRequest.getPekerjaan());
+//        anggota.setTanggalMasuk(anggotaRequest.getTanggalMasuk());
+//        anggota.setTelpon(anggotaRequest.getTelepon());
+//        anggota.setTempatLahir(anggotaRequest.getTempatLahir());
+//        anggota.setTglLahir(anggotaRequest.getTglLahir());
+//        anggota.setStatus(anggotaRequest.getStatus());
+////        anggota.setUEntry(anggotaRequest.getUEntry());
+//        anggota.setTglEntry(anggotaRequest.getTglEntry());
+//
+//        Anggota savedAnggota = anggotaRepository.save(anggota);
+//
+//        return new AnggotaResponseDTO(
+//                savedAnggota.getId_anggota(),
+//                savedAnggota.getNamaAnggota(),
+//                savedAnggota.getAlamatAnggota(),
+//                savedAnggota.getJenisKelamin(),
+//                savedAnggota.getPekerjaan(),
+//                savedAnggota.getTanggalMasuk(),
+//                savedAnggota.getTelpon(),
+//                savedAnggota.getTempatLahir(),
+//                savedAnggota.getTglLahir(),
+//                savedAnggota.getStatus(),
+////                savedAnggota.getUEntry(),
+//                savedAnggota.getTglEntry()
+//        );
+//    }
