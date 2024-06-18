@@ -11,14 +11,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "anggotas")
+@Table(name = "anggotas", uniqueConstraints = {@UniqueConstraint(columnNames = {"nama_anggota"})})
 public class Anggota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_anggota;
 
-    @Column(name = "nama_anggota")
+    @Column(name = "nama_anggota", unique = true)
     private String namaAnggota;
 
     @Column(name = "alamat_anggota")

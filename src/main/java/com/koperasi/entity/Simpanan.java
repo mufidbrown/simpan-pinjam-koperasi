@@ -22,4 +22,8 @@ public class Simpanan {
     @JoinColumn(name = "id_anggota")
     private Anggota anggota;
 
+    @ManyToOne
+    @JoinColumn(name = "id_jenis_simpanan")
+    private JenisSimpanan jenisSimpanan;
+
 }
