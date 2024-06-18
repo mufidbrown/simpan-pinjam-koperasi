@@ -103,5 +103,49 @@ public class AnggotaController {
         }
     }
 
+        @PostMapping("/create1")
+        public ResponseEntity<BaseResponse<AnggotaResponseDTO>> addAnggota1(@Valid @RequestBody AnggotaRequestDTO anggotaRequest) {
+            try {
+                // Memanggil service untuk menambahkan anggota
+                AnggotaResponseDTO responseDTO = anggotaService.addAnggota(anggotaRequest);
+
+                // Mengembalikan respons berhasil
+                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
+                        .success(true)
+                        .status(HttpStatus.CREATED.value())
+                        .color("#F44336")
+                        .data(responseDTO)
+                        .message("Anggota berhasil ditambahkan")
+                        .build();
+
+                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            } catch (DuplicateEntityException e) {
+                // Tangani pengecualian jika terjadi duplikat entitas
+                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
+                        .success(false)
+                        .status(HttpStatus.CONFLICT.value())
+                        .color("#F44336")
+                        .message("Anggota dengan nama tersebut sudah ada.")
+                        .build();
+
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+            } catch (Exception e) {
+                // Tangani pengecualian lainnya
+                BaseResponse<AnggotaResponseDTO> response = BaseResponse.<AnggotaResponseDTO>builder()
+                        .success(false)
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .color("#F44336")
+                        .message("Gagal menambahkan anggota.")
+                        .build();
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            }
+        }
+
+
+
+
+
+
 }
 
