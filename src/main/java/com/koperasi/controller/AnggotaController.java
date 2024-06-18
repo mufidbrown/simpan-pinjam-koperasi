@@ -1,6 +1,7 @@
 package com.koperasi.controller;
 
 
+import com.koperasi.config.BaseResponse;
 import com.koperasi.dto.request.AnggotaRequestDTO;
 import com.koperasi.dto.response.AnggotaResponseDTO;
 import com.koperasi.exception.DuplicateEntityException;
@@ -53,57 +54,6 @@ public class AnggotaController {
     }
 
 
-//    @PostMapping("/create")
-//    public ResponseEntity<?> addAnggota(@Valid @RequestBody AnggotaRequestDTO anggotaRequest) {
-//        try {
-//            // Memanggil service untuk menambahkan anggota
-//            AnggotaResponseDTO responseDTO = anggotaService.addAnggota(anggotaRequest);
-//
-//            // Mengembalikan respons berhasil
-//            return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-//        } catch (DuplicateEntityException e) {
-//            // Tangani pengecualian jika terjadi duplikat entitas
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body("Anggota dengan nama tersebut sudah ada.");
-//        } catch (Exception e) {
-//            // Tangani pengecualian lainnya
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-
-
-/*
-    ini yang sudah berjalan, tetapi belum berhasil menangani duplikat data exception
-*/
-//    @PostMapping("/create")
-//    public ResponseEntity<?> addAnggota(@Valid @RequestBody AnggotaRequestDTO anggotaRequest) {
-//        try {
-//            // Memanggil service untuk menambahkan anggota
-//            AnggotaResponseDTO responseDTO = anggotaService.addAnggota(anggotaRequest);
-//
-//            // Mengembalikan respons berhasil
-//            return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-//        } catch (DuplicateEntityException e) {
-//            // Tangani pengecualian jika terjadi duplikat entitas
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body("Anggota dengan nama tersebut sudah ada.");
-//        } catch (Exception e) {
-//            // Tangani pengecualian lainnya
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-
-
-
-
-//    @PostMapping("/create")
-//    public ResponseEntity<AnggotaResponseDTO> addAnggota(@Valid @RequestBody AnggotaRequestDTO anggotaRequest) {
-//        try {
-//            AnggotaResponseDTO responseDTO = anggotaService.addAnggota(anggotaRequest);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<AnggotaResponseDTO> getAnggotaById(@PathVariable Long id) {
         try {
@@ -137,6 +87,19 @@ public class AnggotaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    //-----------------------BaseResponse------------------------
+
+    @GetMapping("/all1")
+    public ResponseEntity<BaseResponse<List<AnggotaResponseDTO>>> getAllAnggotas1() {
+        try {
+            List<AnggotaResponseDTO> anggotas = anggotaService.getAllAnggotas();
+            return ResponseEntity.ok(BaseResponse.ok("Daftar Semua Anggota", anggotas));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseResponse.error("Gagal mengambil daftar anggota."));
         }
     }
 
