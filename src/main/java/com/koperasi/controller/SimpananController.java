@@ -106,4 +106,30 @@ public class SimpananController {
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BaseResponse<SimpananResponseDTO>> updateSimpanan(
+            @PathVariable Long id,
+            @Valid @RequestBody SimpananRequestDTO simpananRequest) {
+        try {
+            SimpananResponseDTO updatedSimpanan = simpananService.updateSimpanan(id, simpananRequest);
+            return ResponseEntity.ok(BaseResponse.ok("Simpanan berhasil diupdate", updatedSimpanan));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseResponse.error("Gagal mengupdate simpanan."));
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<Void>> deleteSimpanan(@PathVariable Long id) {
+        try {
+            simpananService.deleteSimpanan(id);
+            return ResponseEntity.ok(BaseResponse.ok("Simpanan berhasil dihapus", null));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseResponse.error("Gagal menghapus simpanan."));
+        }
+    }
 }
