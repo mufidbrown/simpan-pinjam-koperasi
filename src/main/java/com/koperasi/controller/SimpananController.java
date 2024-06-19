@@ -2,6 +2,7 @@ package com.koperasi.controller;
 
 import com.koperasi.config.BaseResponse;
 import com.koperasi.dto.request.SimpananRequestDTO;
+import com.koperasi.dto.response.AnggotaResponseDTO;
 import com.koperasi.dto.response.SimpananResponseDTO;
 import com.koperasi.exception.DuplicateEntityException;
 import com.koperasi.exception.ValidationException;
@@ -29,7 +30,38 @@ public class SimpananController {
         this.simpananService = simpananService;
     }
 
-    @GetMapping("/all1")  // Mengganti endpoint '/all1' menjadi '/all'
+    @PostMapping("/create")
+    public ResponseEntity<?> addSimpanan(@Valid @RequestBody SimpananRequestDTO simpananRequest) {
+        try {
+            SimpananResponseDTO responseDTO = simpananService.addSimpanan(simpananRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    //-----------------------BaseResponse------------------------
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BaseResponse<SimpananResponseDTO>> getSimpananById(@PathVariable Long id) {
+        try {
+            SimpananResponseDTO simpanan = simpananService.getSimpananById(id);
+            return ResponseEntity.ok(BaseResponse.ok("Simpanan ditemukan", simpanan));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(BaseResponse.error(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseResponse.error("Gagal mengambil simpanan."));
+        }
+    }
+
+
+/*
+    untuk all belum bisa
+*/
+    @GetMapping("/all")
     public ResponseEntity<BaseResponse<List<SimpananResponseDTO>>> getAllSimpanans() {
         try {
             List<SimpananResponseDTO> simpanans = simpananService.getAllSimpanans();
