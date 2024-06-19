@@ -52,21 +52,51 @@ public class SimpananServiceImpl implements SimpananService {
 
 
 
-
-
     @Override
     public List<SimpananResponseDTO> getAllSimpanans() {
-        List<Simpanan> allSimpanans = simpananRepository.findAll();
-        return allSimpanans.stream()
-                .map(simpanan -> new SimpananResponseDTO(
-                        simpanan.getId_simpanan(),
-                        simpanan.getBesarSimpanan(),
-                        simpanan.getTglMulai(),
-                        simpanan.getTglEntry(),
-                        mapAnggotaToAnggotaResponseDTO(simpanan.getAnggota())
-                ))
+        List<Simpanan> simpananList = simpananRepository.findAll();
+        return simpananList.stream()
+                .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
+
+    private SimpananResponseDTO convertToResponseDTO(Simpanan simpanan) {
+        SimpananResponseDTO responseDTO = new SimpananResponseDTO();
+        responseDTO.setId_simpanan(simpanan.getId_simpanan());
+        responseDTO.setBesarSimpanan(simpanan.getBesarSimpanan());
+        responseDTO.setTglMulai(simpanan.getTglMulai());
+        responseDTO.setTglEntry(simpanan.getTglEntry());
+
+        // Mengambil objek Anggota dari Simpanan
+        Anggota anggota = simpanan.getAnggota();
+
+        if (anggota != null) {
+            // Membuat objek AnggotaResponseDTO dari objek Anggota yang terkait
+            AnggotaResponseDTO anggotaResponseDTO = new AnggotaResponseDTO();
+            anggotaResponseDTO.setId_anggota(anggota.getId_anggota());
+            anggotaResponseDTO.setNamaAnggota(anggota.getNamaAnggota());
+            anggotaResponseDTO.setAlamatAnggota(anggota.getAlamatAnggota());
+            anggotaResponseDTO.setJenisKelamin(anggota.getJenisKelamin());
+            anggotaResponseDTO.setPekerjaan(anggota.getPekerjaan());
+            anggotaResponseDTO.setTanggalMasuk(anggota.getTanggalMasuk().toString()); // Ubah ke format String jika perlu
+            anggotaResponseDTO.setTelpon(anggota.getTelpon());
+            anggotaResponseDTO.setTempatLahir(anggota.getTempatLahir());
+            anggotaResponseDTO.setTglLahir(anggota.getTglLahir().toString()); // Ubah ke format String jika perlu
+            anggotaResponseDTO.setStatus(anggota.getStatus());
+            anggotaResponseDTO.setTglEntry(anggota.getTglEntry().toString()); // Ubah ke format String jika perlu
+
+            responseDTO.setAnggota(anggotaResponseDTO);
+        } else {
+            // Handle kasus jika anggota null
+            // Misalnya, set objek AnggotaResponseDTO ke null atau lakukan tindakan lain sesuai kebutuhan
+            responseDTO.setAnggota(null);
+        }
+
+        return responseDTO;
+    }
+
+
+
 //
 //    @Override
 //    public SimpananResponseDTO addSimpanan(SimpananRequestDTO simpananRequest) {

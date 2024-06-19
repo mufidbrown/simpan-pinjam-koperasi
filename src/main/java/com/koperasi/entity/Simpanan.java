@@ -9,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "simpanans", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_anggota"})})
+@Table(name = "simpanans")
+//@Table(name = "simpanans", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_anggota"})})
 public class Simpanan {
 
     @Id

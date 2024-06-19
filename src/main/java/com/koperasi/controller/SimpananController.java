@@ -61,15 +61,14 @@ public class SimpananController {
 /*
     untuk all belum bisa
 */
-    @GetMapping("/all")
-    public ResponseEntity<BaseResponse<List<SimpananResponseDTO>>> getAllSimpanans() {
-        try {
-            List<SimpananResponseDTO> simpanans = simpananService.getAllSimpanans();
-            return ResponseEntity.ok(BaseResponse.ok("Daftar Semua Simpanan", simpanans));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseResponse.error("Gagal mengambil daftar simpanan."));
-        }
+
+    @GetMapping("all")
+    public ResponseEntity<List<SimpananResponseDTO>> getAllSimpanan() {
+        List<SimpananResponseDTO> simpananList = simpananService.getAllSimpanans();
+        return new ResponseEntity<>(simpananList, HttpStatus.OK);
     }
+
+
 
     @PostMapping("/create1")  // Mengganti endpoint '/create1' menjadi '/create'
     public ResponseEntity<BaseResponse<SimpananResponseDTO>> addSimpanan(@Valid @RequestBody SimpananRequestDTO simpananRequest,
