@@ -17,4 +17,5 @@ public class SimpananResponseDTO {
     private String tglEntry;
     private AnggotaResponseDTO anggota;
 
+
 }

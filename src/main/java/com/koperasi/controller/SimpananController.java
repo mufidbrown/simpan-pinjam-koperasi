@@ -3,13 +3,16 @@ package com.koperasi.controller;
 import com.koperasi.config.BaseResponse;
 import com.koperasi.dto.request.SimpananRequestDTO;
 import com.koperasi.dto.response.SimpananResponseDTO;
+import com.koperasi.exception.DuplicateEntityException;
 import com.koperasi.exception.ValidationException;
 import com.koperasi.service.simpanan.SimpananService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

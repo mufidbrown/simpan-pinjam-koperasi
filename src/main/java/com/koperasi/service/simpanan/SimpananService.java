@@ -19,4 +19,6 @@ public interface SimpananService {
 
     void deleteSimpanan(Long id);
 
+
+
 }

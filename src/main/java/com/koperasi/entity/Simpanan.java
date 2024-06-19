@@ -27,11 +27,12 @@ public class Simpanan {
     private String tglEntry;
 
     @ManyToOne
-    @JoinColumn(name = "id_anggota", unique = true)
+    @JoinColumn(name = "id_anggota")
     private Anggota anggota;
 
     @ManyToOne
     @JoinColumn(name = "id_jenis_simpanan")
     private JenisSimpanan jenisSimpanan;
+
 
 }

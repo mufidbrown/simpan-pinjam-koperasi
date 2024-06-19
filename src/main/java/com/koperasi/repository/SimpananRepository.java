@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SimpananRepository extends JpaRepository<Simpanan, Long> {
+    boolean existsById(Long IdAnggota);
 
-    boolean existsByIdAnggota(Long IdAnggota);
 
 }

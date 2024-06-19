@@ -26,4 +26,7 @@ public class SimpananRequestDTO {
 
     @NotNull(message = "ID Anggota tidak boleh kosong")
     private Long idAnggota;
+
+
+
 }

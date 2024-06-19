@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class ValidationException extends RuntimeException {
 
+    //untuk error 400 not found
+
     private final List<String> errors;
 
     public ValidationException(BindingResult bindingResult) {

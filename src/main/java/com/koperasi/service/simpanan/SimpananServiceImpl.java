@@ -43,58 +43,52 @@ public class SimpananServiceImpl implements SimpananService {
 
     @Override
     public SimpananResponseDTO addSimpanan(SimpananRequestDTO simpananRequest) {
-        Long idAnggota = simpananRequest.getIdAnggota();
-
-        // Cek apakah anggota dengan id tersebut sudah ada
-        Anggota anggota = anggotaRepository.findById(idAnggota)
-                .orElseThrow(() -> new EntityNotFoundException("Anggota dengan id " + idAnggota + " tidak ditemukan"));
-
-        // Cek apakah sudah ada simpanan untuk anggota tersebut
-        if (simpananRepository.existsByIdAnggota(idAnggota)) {
-            throw new DuplicateEntityException("Simpanan untuk anggota dengan id " + idAnggota + " sudah ada");
+        // Logika untuk mengecek apakah anggota sudah memiliki simpanan
+        if (simpananRepository.existsById(simpananRequest.getIdAnggota())) {
+            throw new DuplicateEntityException("Anggota dengan ID tersebut sudah memiliki simpanan.");
         }
 
-        // Buat objek Simpanan baru
+        // Logika untuk menyimpan simpanan baru
         Simpanan simpanan = new Simpanan();
         simpanan.setBesarSimpanan(simpananRequest.getBesarSimpanan());
         simpanan.setTglMulai(simpananRequest.getTglMulai());
         simpanan.setTglEntry(simpananRequest.getTglEntry());
+
+        // Ambil anggota berdasarkan ID dari simpananRequest
+        Anggota anggota = anggotaRepository.findById(simpananRequest.getIdAnggota())
+                .orElseThrow(() -> new EntityNotFoundException("Anggota tidak ditemukan"));
+
         simpanan.setAnggota(anggota);
 
-        // Simpan objek Simpanan ke dalam basis data
         Simpanan savedSimpanan = simpananRepository.save(simpanan);
+
+        // Buat response DTO untuk simpanan
+        AnggotaResponseDTO anggotaResponse = new AnggotaResponseDTO(
+                anggota.getId_anggota(),
+                anggota.getNamaAnggota(),
+                anggota.getAlamatAnggota(),
+                anggota.getJenisKelamin(),
+                anggota.getPekerjaan(),
+                anggota.getTanggalMasuk(),
+                anggota.getTelpon(),
+                anggota.getTempatLahir(),
+                anggota.getTglLahir(),
+                anggota.getStatus(),
+                anggota.getTglEntry()
+        );
 
         return new SimpananResponseDTO(
                 savedSimpanan.getId_simpanan(),
                 savedSimpanan.getBesarSimpanan(),
                 savedSimpanan.getTglMulai(),
                 savedSimpanan.getTglEntry(),
-                savedSimpanan.getAnggota().getId_anggota()
+                anggotaResponse
         );
     }
 
 
-//    @Override
-//    public SimpananResponseDTO addSimpanan(SimpananRequestDTO simpananRequest) {
-//        Anggota anggota = anggotaRepository.findById(simpananRequest.getIdAnggota())
-//                .orElseThrow(() -> new RuntimeException("Anggota not found with id: " + simpananRequest.getIdAnggota()));
-//
-//        Simpanan simpanan = new Simpanan();
-//        simpanan.setBesarSimpanan(simpananRequest.getBesarSimpanan());
-//        simpanan.setTglMulai(simpananRequest.getTglMulai());
-//        simpanan.setTglEntry(simpananRequest.getTglEntry());
-//        simpanan.setAnggota(anggota);
-//
-//        Simpanan savedSimpanan = simpananRepository.save(simpanan);
-//
-//        return new SimpananResponseDTO(
-//                savedSimpanan.getId_simpanan(),
-//                savedSimpanan.getBesarSimpanan(),
-//                savedSimpanan.getTglMulai(),
-//                savedSimpanan.getTglEntry(),
-//                mapAnggotaToAnggotaResponseDTO(savedSimpanan.getAnggota())
-//        );
-//    }
+
+
 
     @Override
     public SimpananResponseDTO getSimpananById(Long id) {

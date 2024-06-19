@@ -22,7 +22,8 @@ public class AnggotaResponseDTO {
     private String tempatLahir;
     private String tglLahir;
     private String status;
-//    private String uEntry;
+    //    private String uEntry;
     private String tglEntry;
+
 
 }
