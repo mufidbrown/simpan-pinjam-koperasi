@@ -19,8 +19,8 @@ public class TransaksiPinjamanResponseDTO {
     private String tglEntry;
     private String tglTempo;
     private String status;
-    private Long id_anggota;
+    private Long idAnggota;
     private String namaAnggota; // asumsikan Anda ingin menampilkan nama anggota
-    private Long id_jenis_pinjaman;
+    private Long idJenisPinjaman;
     private String namaJenisPinjaman; // asumsikan Anda ingin menampilkan nama jenis pinjaman
 }

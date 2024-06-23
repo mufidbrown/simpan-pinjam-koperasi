@@ -9,6 +9,8 @@ public interface TransaksiPinjamanService {
     TransaksiPinjamanResponseDTO createTransaksiPinjaman(TransaksiPinjamanRequestDTO requestDTO);
     TransaksiPinjamanResponseDTO getTransaksiPinjamanById(Long id);
     List<TransaksiPinjamanResponseDTO> getAllTransaksiPinjaman();
-//    TransaksiPinjamanResponseDTO updateTransaksiPinjaman(Long id, TransaksiPinjamanRequestDTO requestDTO);
-//    void deleteTransaksiPinjaman(Long id);
+
+    TransaksiPinjamanResponseDTO updateTransaksiPinjaman(Long id, TransaksiPinjamanRequestDTO requestDTO);
+
+    void deleteTransaksiPinjaman(Long id);
 }
