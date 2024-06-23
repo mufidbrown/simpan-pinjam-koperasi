@@ -43,4 +43,5 @@ public class TransaksiPinjaman {
     private JenisPinjaman jenisPinjaman;
 
 
+
 }
